@@ -25,7 +25,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Enter youtube URL: ")
+	fmt.Print("Enter youtube URL: ")
 	var url string
 	fmt.Scan(&url)
 
