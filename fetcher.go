@@ -13,7 +13,6 @@ import (
 	"os/exec"
 	"regexp"
 	"strconv"
-	"strings"
 )
 
 type Metadata struct {
@@ -252,17 +251,7 @@ func getCover(video Video, output string) (err error) {
 	return err
 }
 
-func sanitize(str string) string {
-	// ugly af, but hey it works
-	str = strings.Replace(str, "/", "", -1)
-	str = strings.Replace(str, "\\", "", -1)
-	str = strings.Replace(str, ":", "", -1)
-	str = strings.Replace(str, "*", "", -1)
-	str = strings.Replace(str, "?", "", -1)
-	str = strings.Replace(str, "<", "", -1)
-	str = strings.Replace(str, ">", "", -1)
-	str = strings.Replace(str, "\"", "", -1)
-	str = strings.Replace(str, "|", "", -1)
-	str = strings.Replace(str, "~", "", -1)
-	return str
+func sanitize(query string) string {
+	exp := regexp.MustCompile(`\/|\\|:|\*|\?|>|<|\"|\||~`)
+	return exp.ReplaceAllLiteralString(query, "")
 }
